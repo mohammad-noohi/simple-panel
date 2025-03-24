@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 // react bootstrap
-import { Table, Modal, Button, Form } from "react-bootstrap";
+import { Table, Modal, Button, Form, Alert } from "react-bootstrap";
 // icons
 import { FaRegEdit } from "react-icons/fa";
 import { FaRegTrashCan } from "react-icons/fa6";
@@ -79,47 +79,53 @@ function Users() {
   return (
     <div className="shadow rounded p-3 min-vh-100">
       <h1 className="text-capitalize">users table data</h1>
-      <Table className="mt-4 text-center text-nowrap" responsive striped>
-        <thead>
-          <tr>
-            <th className="text-capitalize">number</th>
-            <th className="text-capitalize">first name</th>
-            <th className="text-capitalize">last name</th>
-            <th className="text-capitalize">email</th>
-            <th className="text-capitalize text-start">actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, index) => (
-            <tr key={user[0]}>
-              <td>{index + 1}</td>
-              <td>{user[1].firstName}</td>
-              <td>{user[1].lastName}</td>
-              <td>{user[1].email}</td>
-              <td>
-                <div className="d-flex gap-2">
-                  <button
-                    className="btn btn-warning text-uppercase"
-                    onClick={() => {
-                      setShowEditModal(true);
-                      setUserId(user[0]);
-                    }}>
-                    <FaRegEdit style={{ verticalAlign: "start" }} />
-                  </button>
-                  <button
-                    className="btn btn-danger text-uppercase"
-                    onClick={() => {
-                      setShowDeleteModal(true);
-                      setUserId(user[0]);
-                    }}>
-                    <FaRegTrashCan style={{ verticalAlign: "start" }} />
-                  </button>
-                </div>
-              </td>
+      {users.length > 0 ? (
+        <Table className="mt-4 text-center text-nowrap" responsive striped>
+          <thead>
+            <tr>
+              <th className="text-capitalize">number</th>
+              <th className="text-capitalize">first name</th>
+              <th className="text-capitalize">last name</th>
+              <th className="text-capitalize">email</th>
+              <th className="text-capitalize text-start">actions</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {users.map((user, index) => (
+              <tr key={user[0]}>
+                <td>{index + 1}</td>
+                <td>{user[1].firstName}</td>
+                <td>{user[1].lastName}</td>
+                <td>{user[1].email}</td>
+                <td>
+                  <div className="d-flex gap-2">
+                    <button
+                      className="btn btn-warning text-uppercase"
+                      onClick={() => {
+                        setShowEditModal(true);
+                        setUserId(user[0]);
+                      }}>
+                      <FaRegEdit style={{ verticalAlign: "start" }} />
+                    </button>
+                    <button
+                      className="btn btn-danger text-uppercase"
+                      onClick={() => {
+                        setShowDeleteModal(true);
+                        setUserId(user[0]);
+                      }}>
+                      <FaRegTrashCan style={{ verticalAlign: "start" }} />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      ) : (
+        <Alert className="mt-3" variant="danger">
+          No users found.
+        </Alert>
+      )}
 
       {/* Remove User Modal */}
       <Modal show={showDeleteModal} onHide={closeDeleteModal}>
@@ -221,7 +227,8 @@ useEffect(() => {
 
 6. یه سوال توی ذهنم هست البته توی این پروژه بهش برخورد نکردم ولی توی فکر بود که ما میام و یه سری مواقع یه تابع رو به عنوان یه پراپ به یه کامپوننت دیگه پاس میدیم و اونجا ازش استفاده میکنیم چون استیت داره توی کامپوننت مادر مدیریت میشه اما سوالی که هست که اگر این تودرتویی کامپوننت ها مثلا چندتا لایه مثلا ۳ الی ۴ تا لایه تو در تو بشه ما هر دفعه باید این متد رو از کامپوننت بالایی به کامپوننت پایینی با استفاده از پراپ پاس بدیم ؟ به نظرم خیلی این حرکت جالب نیست و احتمالا یه راه حل دیگه ای هست ولی من بلد نیستم و خب این اتفاق دست ما رو توی کامپوننت بندی محدود میکنه
 
+7. اومدم و گفتم اگر کاربری یافت نشد یه الرت نشون بده ولی خب حتی اگر کاربری هم داشته باشیم باز هم این الرت نمایش داده میشه متوجه دلیلش نشدم
 
-
+8. و یه چیزه جالبی که بود اینه که اگر فقط یه کاربر داشته باشیم و بعد اینو حذف کنیم اصل کار نمیکنه و باید حتما ریلود کنیم اینم نفهمیدم
 
 */
